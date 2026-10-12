@@ -1,0 +1,19 @@
+# Example only: replace the domain, upstream IP, middleware and certificate resolver.
+# Install in your Traefik file-provider dynamic directory.
+# Uses the existing authelia@file middleware and Cloudflare certificate resolver.
+http:
+  routers:
+    perma-canvas:
+      rule: Host(`canvas.example.com`)
+      entryPoints:
+        - websecure
+      middlewares:
+        - authelia@file
+      service: perma-canvas
+      tls:
+        certResolver: cloudflare
+  services:
+    perma-canvas:
+      loadBalancer:
+        servers:
+          - url: http://192.0.2.10:80
