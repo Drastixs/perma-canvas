@@ -1,0 +1,5 @@
+/data/
+/perma-canvas
+/.venv/
+__pycache__/
+.env

@@ -1,0 +1,17 @@
+# Behind the existing Traefik + Authelia route. Replace VM_PRIVATE_IP.
+# Firewall the VM port so only this nginx LXC can reach it.
+server {
+    listen 80;
+    server_name canvas.example.com;
+    client_max_body_size 2g;
+    location / {
+        proxy_pass http://VM_PRIVATE_IP:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host canvas.example.com;
+        proxy_set_header Connection "";
+        proxy_buffering off;
+        proxy_request_buffering off;
+        proxy_read_timeout 300s;
+        proxy_send_timeout 300s;
+    }
+}

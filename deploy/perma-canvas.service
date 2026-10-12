@@ -1,0 +1,26 @@
+[Unit]
+Description=Persistent Canvas web proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=perma-canvas
+Group=perma-canvas
+WorkingDirectory=/opt/perma-canvas
+EnvironmentFile=/etc/perma-canvas.env
+ExecStart=/opt/perma-canvas/perma-canvas serve
+Restart=on-failure
+StateDirectory=perma-canvas
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target
